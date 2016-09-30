@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            counter-reset: icecream;
+        }
+        input:checked {
+            counter-increment: icecream;
+        }
+        .total::after {
+            content: counter(icecream);
+        }
+    </style>
+</head>
+<body>
+    <strong>下面中国十大冰淇淋你吃过几个？</strong>
+    <ul>
+        <li><input type="checkbox" id="icecream1"><label for="icecream1">哈根达斯</label></li>
+        <li><input type="checkbox" id="icecream2"><label for="icecream2">和路雪wall's</label></li>
+        <li><input type="checkbox" id="icecream3"><label for="icecream3">八喜冰淇淋</label></li>
+        <li><input type="checkbox" id="icecream4"><label for="icecream4">DQ冰淇淋</label></li>
+        <li><input type="checkbox" id="icecream5"><label for="icecream5">蒙牛冰淇淋</label></li>
+        <li><input type="checkbox" id="icecream6"><label for="icecream6">雀巢冰淇淋</label></li>
+        <li><input type="checkbox" id="icecream7"><label for="icecream7">伊利冰淇淋</label></li>
+        <li><input type="checkbox" id="icecream8"><label for="icecream8">乐可可冰淇淋</label></li>
+        <li><input type="checkbox" id="icecream9"><label for="icecream9">新城市冰淇淋</label></li>
+        <li><input type="checkbox" id="icecream10"><label for="icecream10">明治MEIJI</label></li>
+    </ul>
+    你总共选择了 <strong class="total"></strong> 款冰淇淋！
+</body>
+</html>

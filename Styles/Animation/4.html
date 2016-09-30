@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <meta name='description' content='Web前端 腾讯IMWeb 团队社区'>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="前端交流,前端社区,前端,iconfont,javascript,html,css,webfront,nodejs, node, express, connect, socket.io, lego.imweb.io" />
+    <meta name='baidu-site-verification' content='KputUQ9DeD' />
+    <meta itemprop="name"content="腾讯imweb前端社区" />
+    <meta itemprop="description"content="腾讯imweb前端社区，Web前端 腾讯IMWeb 团队社区" />
+    <meta itemprop="image"content="http://imweb.io/public/images/logo-white.png" />
+    <meta name="author" content="imwebteam@tencent" />
+    <meta property="wb:webmaster" content="f823bb51f1b4e265" />
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="/rss"/>
+    <link rel="stylesheet" href='http://imweb.io/public/stylesheets/lib.css?v=1.22'>
+    <link rel="stylesheet" href='http://imweb.io/public/stylesheets/main.css?v=1.23'>
+    <title>移动端动画方案</title>
+
+    <meta content="_csrf" name="csrf-param">
+    <meta content="YIW4VMIP-yW5XArj1l_K4cOWKfTD-czrW7UE" name="csrf-token">
+
+    <style>
+        #main{
+            max-width: 930px!important;
+        }
+        #content{
+            margin-right: 0!important;
+        }
+        ul ul{
+            margin-left: 20px!important;
+        }
+        ul ul li:before{
+            background-color: #fff!important;
+        }
+    </style>
+</head>
+<body class="">
+<div id='main' class="clearfix">
+    <div id='content'>
+        <div class='panel panel-border'>
+            <div class='header topic_header'>
+                <h1 class="topic-title">移动端动画优化</h1>
+            </div>
+            <div class='inner topic'>
+                <div id="topic_content" class='topic_content'>
+
+                    <div class="markdown-text">
+                        <ul>
+                            <li>合理使用requestAnimationFrame</li>
+                            <li>尽量使用css3</li>
+                            <li>合理使用canvas代替多个dom tree（5个）css3</li>
+                            <li>GPU渲染</li>
+                            <ul>
+                                <li>大量的渲染（canvas，webGL，video）</li>
+                                <li>3D Transformed(transitions,3D tranforms)</li>
+                                <li>Animated css属性(filters,masks,blend modes,reflections,opacity)</li>
+                                <li>position:fixed</li>
+                                <li>content overlapping existing GPU-rendered bitmaps</li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

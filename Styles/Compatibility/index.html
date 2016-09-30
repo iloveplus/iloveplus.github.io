@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>手机兼容性</title>
+    <link rel="stylesheet" href="../index.css">
+    <style>
+        ul{counter-reset:section;}
+        li{
+            padding: 10px;
+            background-color: #def9e5;
+            margin-bottom: 10px;
+        }
+        li:before{
+            counter-increment:section;
+            content:"条目 " counter(section) "：";
+            color: red;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>
+            <div>安卓4.3- 不支持将background-size缩写进background，所以必须单独申明这个样式</div>
+            <div>安卓4.3-不支持background-size使用百分比单位，所以最后只剩下contain, cover这两个取值</div>
+        </li>
+        <li>
+            待整理……
+        </li>
+    </ul>
+</body>
+</html>

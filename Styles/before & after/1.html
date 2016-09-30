@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>不能左右:empty伪类</title>
+    <style>
+        .box{
+            width: 256px;
+            height: 90px;
+            padding: 10px;
+            background-color: red;
+            color:#fff;
+        }
+        .box:empty{
+            opacity: .1;
+        }
+        .pseudo{
+            content: "伪元素生成内容";
+        }
+    </style>
+</head>
+<body>
+    <div class="item">
+        <div class="title">有内容</div>
+        <div class="box">有内容</div>
+    </div>
+
+    <div class="item">
+        <div class="title">无内容</div>
+        <div class="box"></div>
+    </div>
+
+    <div class="item">
+        <div class="title">空格也算内容</div>
+        <div class="box"> </div>
+    </div>
+
+    <div class="item">
+        <div class="title">伪元素不算内容</div>
+        <div class="box pseudo"></div>
+    </div>
+</body>
+</html>

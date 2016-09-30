@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .clearfix:before,.clearfix:after { content: "."; display: block; height: 0; visibility: hidden; }
+        .clearfix:after {clear: both;} .clearfix {zoom: 1;} /* IE < 8 */
+        .box div{width: 200px;height: 200px;background-color: red;margin-right: 20px;margin-bottom: 20px;float: left; }
+        .test{clear: both;}
+    </style>
+</head>
+<body>
+    <div class="test">测试一：</div>
+    <div class="box"><div></div><div></div></div>
+    <div class="box"><div></div><div></div></div>
+
+    <!--*********************************************************-->
+
+    <div class="test">测试二：</div>
+    <div class="box clearfix"><div></div><div></div></div>
+    <div class="box"><div></div><div></div></div>
+</body>
+</html>

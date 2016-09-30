@@ -1,0 +1,27 @@
+body{margin: 0}
+.contain{
+    width: 80%;
+    background: #f5f5f5;
+    margin: 0 auto;
+    text-align: left;
+    padding: 20px;
+}
+h1{text-align: center}
+ul{
+    padding: 0;
+    list-style: none;
+}
+.cnt{
+    overflow: hidden;
+}
+.demo{
+    width: 40%;
+    float: left;
+}
+.code{
+    width: 60%;
+    float: left;
+}
+.syntaxhighlighter{
+    margin: 0!important;
+}

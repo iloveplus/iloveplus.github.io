@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>利用绝对定位配合transform</title>
+    <style>
+        html{height: 100%;}
+        body{
+            margin: 0;
+            height: 100%;
+            background-color: #def9e5;
+        }
+        .box{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            height: 70%;
+            width: 60%;
+            background-color: #fdfdfd;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+</body>
+</html>

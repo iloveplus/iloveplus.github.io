@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="test" data-age="24" data-birth="1992-03-26" data-name="lily"></div>
+</body>
+</html>
+<script>
+    var test = document.getElementById('test');
+    test.onclick = function () {
+        alert(this.dataset.name + ' ' + this.dataset.birth+' '+this.dataset.age +" "+this.getAttribute('data-name')+" "+this.getAttribute('data-age'));
+    }
+</script>
