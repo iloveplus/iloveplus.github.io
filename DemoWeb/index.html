@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>WebDemoList</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../index.css">
     <style>
         li{
@@ -14,6 +17,13 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+        @media screen and (max-width:431px){
+            li{
+                width: 100%;
+                font-size: 1.2em;
+                float: none;
+            }
         }
     </style>
 </head>
