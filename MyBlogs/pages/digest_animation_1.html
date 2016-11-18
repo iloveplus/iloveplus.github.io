@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <meta name='description' content='Web前端 腾讯IMWeb 团队社区'>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="前端交流,前端社区,前端,iconfont,javascript,html,css,webfront,nodejs, node, express, connect, socket.io, lego.imweb.io" />
+    <meta name='baidu-site-verification' content='KputUQ9DeD' />
+    <meta itemprop="name"content="腾讯imweb前端社区" />
+    <meta itemprop="description"content="腾讯imweb前端社区，Web前端 腾讯IMWeb 团队社区" />
+    <meta itemprop="image"content="http://imweb.io/public/images/logo-white.png" />
+    <meta name="author" content="imwebteam@tencent" />
+    <meta property="wb:webmaster" content="f823bb51f1b4e265" />
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="/rss"/>
+    <link rel="stylesheet" href='/MyBlogs/css/imweb.css'>
+    <title>移动端动画方案</title>
+    <meta content="_csrf" name="csrf-param">
+    <meta content="YIW4VMIP-yW5XArj1l_K4cOWKfTD-czrW7UE" name="csrf-token">
+</head>
+<body class="">
+<div class="page-content">
+    <div id='main' class="clearfix">
+    <div id='content'>
+        <div class='panel panel-border'>
+            <div class='header topic_header'>
+                <h1 class="topic-title">移动端动画方案</h1>
+            </div>
+            <div class='inner topic'>
+                <div id="topic_content" class='topic_content'>
+
+                    <div class="markdown-text">
+                        <h2 id="-">前言</h2>
+                        <p>花样直播项目客服端的动画基本已都使用web来做，总结分享一下</p>
+                        <h2 id="-">方案列表</h2>
+                        <ul>
+                            <li>css3动画</li>
+                            <li>canvas 动画</li>
+                            <li>播图片</li>
+                            <li>gif图片</li>
+                        </ul>
+                        <h2 id="-">各个方案的优缺点</h2>
+                        <h3 id="css3-">css3动画</h3>
+                        <ul>
+                            <li>优点：启用css3的3d加速，能够满足性能要求；资源文件最小；</li>
+                            <li>缺点：元素量多、复杂的动画难以实现</li>
+                        </ul>
+                        <p>案例：</p>
+                        <ul>
+                            <li><a href="http://huayang.qq.com/jiaoyou_mgift/9999.html?from=bat&amp;to=bat"target="_blank">花样交友礼物动画</a></li>
+                        </ul>
+                        <h3 id="canvas-">canvas 动画</h3>
+                        <ul>
+                            <li>优点：可以用swf文件直接导出生成，在线导出<a href="https://developers.google.com/swiffy/convert/upload"target="_blank">Google Swiffy</a> (感谢Flash大神龙哥的指导）</li>
+                            <li>缺点：性能不佳。如果不用swf导出，人工绘制canvas性能也不是很好，况且复杂的动画很难绘制，能人工绘制的基本就可以使用css3去搞</li>
+                        </ul>
+                        <p>PS:
+                            最初想用觉得完美，但性能问题被测试叼得不行，之后加班加点换播图片</p>
+                        <h3 id="-">播图片</h3>
+                        <ul>
+                            <li>优点：能够解决一切性能、复杂度的问题</li>
+                            <li>缺点： 因为每一帧都需要一张图片，加载资源较多，不适合持续时间长、尺寸大的动画</li>
+                            <li>注意点：动画的帧率８帧／秒即可，动画的尺寸尽可能小，png图片必须经过无损压缩，最好使用离线包资源</li>
+                        </ul>
+                        <p>案例： </p>
+                        <ul>
+                            <li><a href="http://huayang.qq.com/huayang_mobile/play/enter_1.html?nick_name=bat"target="_blank">花样直播爵位进入动画1</a> 6.5秒 640*360 400k</li>
+                            <li><a href="http://huayang.qq.com/huayang_mobile/play/enter_7.html?nick_name=bat"target="_blank">花样直播爵位进入动画7</a> 6.5秒 720*600 2.1M</li>
+                        </ul>
+                        <h3 id="gif-">gif图片</h3>
+                        <ul>
+                            <li>优点： 容易、简单！貌似可以为所欲为的做动画了</li>
+                            <li>致命点：webview透明的时候很有可能出现锯齿，透明效果很差（PS： 仅此一点你会被产品批的不行，改其它方案吧。）</li>
+                        </ul>
+                        <p>案例：</p>
+                        <ul>
+                            <li><a href="http://huayang.qq.com/mgift/juewei_upgrade.html?name=king"target="_blank">花样直播爵位升级动画</a></li>
+                        </ul>
+                        <h2 id="-">结尾</h2>
+                        <p>具备离线包功能的客服端，尽量使用播图片方案。否则性能问题是一个很难踏过的大坑</p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

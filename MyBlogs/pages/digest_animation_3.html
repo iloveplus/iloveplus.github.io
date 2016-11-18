@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <meta name='description' content='Web前端 腾讯IMWeb 团队社区'>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="前端交流,前端社区,前端,iconfont,javascript,html,css,webfront,nodejs, node, express, connect, socket.io, lego.imweb.io" />
+    <meta name='baidu-site-verification' content='KputUQ9DeD' />
+    <meta itemprop="name"content="腾讯imweb前端社区" />
+    <meta itemprop="description"content="腾讯imweb前端社区，Web前端 腾讯IMWeb 团队社区" />
+    <meta itemprop="image"content="http://imweb.io/public/images/logo-white.png" />
+    <meta name="author" content="imwebteam@tencent" />
+    <meta property="wb:webmaster" content="f823bb51f1b4e265" />
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="/rss"/>
+    <link rel="stylesheet" href='/MyBlogs/css/imweb.css'>
+    <title>移动端动画方案</title>
+    <meta content="_csrf" name="csrf-param">
+    <meta content="YIW4VMIP-yW5XArj1l_K4cOWKfTD-czrW7UE" name="csrf-token">
+</head>
+<body class="">
+<div class="page-content">
+    <div id='main' class="clearfix">
+    <div id='content'>
+        <div class='panel panel-border'>
+            <div class='header topic_header'>
+                <h1 class="topic-title">animation动画实践</h1>
+            </div>
+            <div class='inner topic'>
+                <div id="topic_content" class='topic_content'>
+
+                    <div class="markdown-text">
+                        <h2 id="-">区分浏览器</h2>
+                        <p>既然要实现高级浏览器与低级浏览器不同效果，所以必要的区分下浏览器，使用js给body添加class</p>
+                        <pre><code>var lte9 = <span class="hljs-built_in">document</span>.all &amp;&amp; !<span class="hljs-built_in">window</span>.atob;
+
+<span class="hljs-keyword">if</span>(lte9){
+    <span class="hljs-regexp">//</span>$(<span class="hljs-string">'body'</span>).addClass(<span class="hljs-string">'lte9'</span>);
+    <span class="hljs-built_in">document</span>.documentElement.className += <span class="hljs-string">' lte9'</span>
+}<span class="hljs-keyword">else</span>{
+    <span class="hljs-regexp">//</span>$(<span class="hljs-string">'body'</span>).addClass(<span class="hljs-string">'modern'</span>);
+    <span class="hljs-built_in">document</span>.documentElement.className += <span class="hljs-string">' modern'</span>
+}
+</code></pre><h2 id="-">全屏元素布局</h2>
+                        <p>背景图片（这个是不兼容的，可以通过js来解决，这里因为图片本身很大，所以直接忽略不兼容，设置background-position: center，那样即使有超大的屏幕，也可以实现居中显示）：</p>
+                        <pre><code><span class="hljs-rule"><span class="hljs-attribute">background-size</span>:<span class="hljs-value"> cover</span></span>;
+</code></pre><p>由于是全屏设计，所以可能会遇到屏大屏小，元素参考点以中间为标准，向上下左右延展：</p>
+                        <pre><code><span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absoulte</span></span>;
+<span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">50%</span></span></span>;
+<span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">50%</span></span></span>;
+<span class="hljs-rule"><span class="hljs-attribute">margin-left</span>:<span class="hljs-value"> npx</span></span>;
+<span class="hljs-rule"><span class="hljs-attribute">margin-top</span>:<span class="hljs-value"> npx</span></span>;
+</code></pre><p>或者嵌套一层div，设置</p>
+                        <pre><code><span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value">table-cell</span></span>;
+<span class="hljs-rule"><span class="hljs-attribute">vertical-align</span>:<span class="hljs-value">midddle</span></span>;
+</code></pre><p>元素默认位置原则：</p>
+                        <p>先按照psd稿设置所处位置，那样就不需要给lte9进行位置重置，高级浏览器再通过关键帧动画改变起点位置，注意动画中位置偏移应使用translate而不是top/left或margin值</p>
+                        <h2 id="-">进入动画</h2>
+                        <p>第一种是每次进入都有动画，第二种方案是只有第一次进入有动画，对于之后的滚动都是静态模式</p>
+                        <p>如果采用第一种，我们把动画控制的class绑定在js切换的<code>active</code>上即可</p>
+                        <p>如果采用第二种，就需要另起一个class，如这里用的<code>on</code></p>
+                        <h2 id="-">动画元素一个个出现</h2>
+                        <p>因为动画元素得按照顺序一个个出现，所以在运动之前视觉上是看不见的。这里有两种方法处理：</p>
+                        <ul>
+                            <li>默认设置动画元素的opacity为0，再给lte9的重置为1</li>
+                            <li>默认不处理，给modern的设置opacity为0，这里采用第二种，给高级浏览器动画元素设置opacity为0</li>
+                        </ul>
+                        <h2 id="-">缩放动画</h2>
+                        <p>默认缩放动画统一采用scale，但是特殊情况除外</p>
+                        <p>如果要保持某些像素不虚则不适合使用scale，因为在扩大的时候就会变虚，如波纹，如果通过border或box-shadow扩展出来的都比较粗且虚，所以使用width和height改变大小，通过translate改变位移来实现扩展动画</p>
+                        <p>如果使用scale缩放背景图片也虚得一塌糊涂，所以放弃背景图片而采用img标签，设置img的<code>width:100%;</code>，scale父元素的时候，img也会响应的扩展，且不影响画质，第一屏的两层切换就是用了在scale的元素中使用了img，而非直接背景图</p>
+                        <h2 id="-">多个相当元素依次进入动画</h2>
+                        <p>通过设置<code>animation-delay</code>来依次进入动画，如流星，波纹圆圈</p>
+                        <pre><code><span class="hljs-class">.meteor-list</span> <span class="hljs-class">.meteor-item</span>｛
+    <span class="hljs-rule"><span class="hljs-attribute">animation</span>:<span class="hljs-value"> meteoFlush <span class="hljs-number">2.4s</span> <span class="hljs-number">0.12s</span> linear infinite</span></span>;
+｝
+<span class="hljs-class">.meteor-list</span> <span class="hljs-class">.item--2</span><span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">animation-delay</span>:<span class="hljs-value"> <span class="hljs-number">1.3s</span></span></span>;
+}</span>
+<span class="hljs-class">.meteor-list</span> <span class="hljs-class">.item--3</span><span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">animation-delay</span>:<span class="hljs-value"> <span class="hljs-number">0.8s</span></span></span>;
+}</span>
+</code></pre><h2 id="infinite-">infinite动画中间有空档</h2>
+                        <p>如流星划过，动画应该是持续的，中间可能隔段时间又重新开始，如动画时间为1.2s，而间隔时间为1.2s。就可以通过设置动画时间为2.4s，而关键帧的设置可以在50%的时候就到达运动结束的位置，也就是50%-100%这段时间其实就是空出来的间隔时间。</p>
+                        <pre><code><span class="hljs-class">.meteor-list</span> <span class="hljs-class">.meteor-item</span>｛
+    <span class="hljs-tag">animation</span>: <span class="hljs-tag">meteoFlush</span> <span class="hljs-tag">2</span><span class="hljs-class">.4s</span> <span class="hljs-tag">0</span><span class="hljs-class">.12s</span> <span class="hljs-tag">linear</span> <span class="hljs-tag">infinite</span>;
+｝
+
+<span class="hljs-attr_selector">[[@-webkit-keyframes]</span>(/user/-webkit-keyframes)](/user/-webkit-keyframes) <span class="hljs-tag">meteoFlush</span>{
+    <span class="hljs-tag">0%</span>{
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+        <span class="hljs-attribute">transform</span>: <span class="hljs-function">translate3d</span>(<span class="hljs-number">55px</span>, -<span class="hljs-number">35px</span>, <span class="hljs-number">0</span>);
+    }
+    <span class="hljs-tag">25%</span>{
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-tag">50%</span>, <span class="hljs-tag">100%</span>{
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+        <span class="hljs-attribute">transform</span>: <span class="hljs-function">translate3d</span>(-<span class="hljs-number">85px</span>, <span class="hljs-number">35px</span>, <span class="hljs-number">0</span>);
+    }
+}
+</code></pre><h2 id="-">动画暂停</h2>
+                        <p>当进入第一屏的第二层时，流星动画暂停</p>
+                        <pre><code><span class="hljs-class">.s-1-2-on</span> <span class="hljs-class">.meteor-item</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">animation-play-state</span>:<span class="hljs-value"> paused</span></span>;
+}</span>
+</code></pre><h2 id="-">多次动画</h2>
+                        <p>如“学习成就梦想”实现了三次动画，刚进入的时候是fade in动画，滚动进入第二层的时候是缩小动画，往回滚是放大动画</p>
+                        <p>抓住最终结束状态，并设置为默认的css，这里最终结束状态有两个，一个是第一层的时候大小为原始大小，一个是第二层的时候大小为一半大小。</p>
+                        <pre><code><span class="hljs-class">.s-1</span> <span class="hljs-class">.s-slogan</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absolute</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">588px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">93px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">50%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">50%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-left</span>:<span class="hljs-value"> -<span class="hljs-number">294px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-top</span>:<span class="hljs-value"> -<span class="hljs-number">230px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">z-index</span>:<span class="hljs-value"> <span class="hljs-number">20</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+}</span>
+
+<span class="hljs-class">.s-1-2-on</span> <span class="hljs-class">.s-slogan</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">transform</span>:<span class="hljs-value"> <span class="hljs-function">scale</span>(.<span class="hljs-number">5</span>)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">transform-origin</span>:<span class="hljs-value"> center bottom</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+}</span>
+</code></pre><p>动画的实现通过class来控制，如刚进入的fade in动画，父元素追加class<code>s-1-1-on</code></p>
+                        <pre><code>.s-<span class="hljs-number">1</span>-<span class="hljs-number">1</span>-on .s-slogan {
+  animation: fadeIn <span class="hljs-number">1.3</span>s <span class="hljs-number">1.1</span>s cubic-bezier(<span class="hljs-number">.67</span>,<span class="hljs-number">.01</span>,<span class="hljs-number">.38</span>,<span class="hljs-number">1</span>) forwards;
+}
+</code></pre><p>进入第二层的时候，父元素追加class<code>s-1-2-on in</code>，离开的时候先把in换成out，再动画结束之后删除追加的<code>s-1-2-on out</code></p>
+                        <pre><code><span class="hljs-class">.s-1-2-on</span><span class="hljs-class">.in</span> <span class="hljs-class">.s-slogan</span>{
+    <span class="hljs-attribute">animation</span>: ttShrink <span class="hljs-number">1s</span> forwards;
+}
+<span class="hljs-class">.s-1-2-on</span><span class="hljs-class">.out</span> <span class="hljs-class">.s-slogan</span>{
+    <span class="hljs-attribute">animation</span>: ttShrink <span class="hljs-number">1s</span> reverse forwards;
+}
+
+<span class="hljs-attr_selector">[[[[@keyframes]</span>(/user/keyframes)](/user/keyframes)](/user/keyframes)](/user/keyframes) <span class="hljs-tag">ttShrink</span>{
+    <span class="hljs-tag">0%</span>{
+        <span class="hljs-attribute">transform</span>: <span class="hljs-function">scale</span>(<span class="hljs-number">1</span>);
+    }
+    <span class="hljs-tag">100%</span>{
+        <span class="hljs-attribute">transform</span>: <span class="hljs-function">scale</span>(.<span class="hljs-number">5</span>);
+    }
+}
+</code></pre><h2 id="-">反向动画</h2>
+                        <p>见上面的in和out，注意正向和反向动画得把动画分别绑定在两个不同的class，而默认的class只负责设置为正向动画结束后停留的位置。</p>
+                        <h2 id="-">延迟动画</h2>
+                        <p>延迟的动画如果第一帧的透明度不是从0开始，得重新添加一个关键帧，不然会出现一个半透明的在等着动画。如：</p>
+                        <pre><code><span class="hljs-class">.s-2</span><span class="hljs-class">.on</span> <span class="hljs-class">.s-img-msg</span>{
+    <span class="hljs-attribute">animation</span>: msgShow <span class="hljs-number">0.2s</span> <span class="hljs-number">1s</span> both;    
+}
+<span class="hljs-attr_selector">[[[[@keyframes]</span>(/user/keyframes)](/user/keyframes)](/user/keyframes)](/user/keyframes) <span class="hljs-tag">msgShow</span>{
+    <span class="hljs-tag">0%</span>{
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+        <span class="hljs-attribute">transform</span>: <span class="hljs-function">scale</span>(<span class="hljs-number">0.5</span>);
+    }
+    <span class="hljs-tag">1%</span>{
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.5</span>;
+        <span class="hljs-attribute">-webkit-transform</span>: <span class="hljs-function">scale</span>(<span class="hljs-number">0.5</span>);
+    }
+    <span class="hljs-tag">100%</span>{
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+        <span class="hljs-attribute">transform</span>: <span class="hljs-function">scale</span>(<span class="hljs-number">1</span>);
+    }
+}
+</code></pre><p>因为opacity从0.5开始，而动画是延迟在1s后执行，所以如果不特殊处理，就意味着在<code>opacity:0.5;</code>的时候，会持续1s等待。这里将0%设置为<code>opacity:0;</code>，而把实际关键帧0.5放在了1%</p>
+                        <h2 id="-">多个动画结合于同一元素</h2>
+                        <p>第三屏对话框的动画，fade in和width动画结合</p>
+                        <pre><code><span class="hljs-class">.on</span> <span class="hljs-class">.chat-item--1</span> <span class="hljs-class">.item-text</span>{
+    <span class="hljs-attribute">animation-name</span>: fadeIn, sizeExpanded1;
+}
+<span class="hljs-attr_selector">[[[[@keyframes]</span>(/user/keyframes)](/user/keyframes)](/user/keyframes)](/user/keyframes) <span class="hljs-tag">fadeIn</span>{
+    <span class="hljs-tag">0%</span>{
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+    }
+    <span class="hljs-tag">100%</span>{
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+    }
+}
+<span class="hljs-attr_selector">[[@-webkit-keyframes]</span>(/user/-webkit-keyframes)](/user/-webkit-keyframes) <span class="hljs-tag">sizeExpanded1</span> {
+    <span class="hljs-tag">0%</span> {
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;
+    }
+    <span class="hljs-tag">100%</span> {
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">85px</span>;
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">408px</span>;
+    }
+}
+</code></pre><h2 id="-">多帧动画，通过多帧控制实现弹簧效果</h2>
+                        <p>可通过关键帧来控制</p>
+                        <pre><code><span class="hljs-attr_selector">[[[[@keyframes]</span>(/user/keyframes)](/user/keyframes)](/user/keyframes)](/user/keyframes) <span class="hljs-tag">qrFlip</span>{
+    <span class="hljs-tag">0%</span>{
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+        <span class="hljs-attribute">transform</span>: <span class="hljs-function">rotateX</span>(<span class="hljs-number">50deg</span>);
+    }
+    <span class="hljs-tag">70%</span>{
+        <span class="hljs-attribute">transform</span>: <span class="hljs-function">rotateX</span>(-<span class="hljs-number">10deg</span>);
+    }
+    <span class="hljs-tag">80%</span>{
+        <span class="hljs-attribute">transform</span>: <span class="hljs-function">rotateX</span>(<span class="hljs-number">6deg</span>);
+    }
+    <span class="hljs-tag">90%</span>{
+        <span class="hljs-attribute">transform</span>: <span class="hljs-function">rotateX</span>(-<span class="hljs-number">4deg</span>);
+    }
+    <span class="hljs-tag">95%</span>{
+        <span class="hljs-attribute">transform</span>: <span class="hljs-function">rotateX</span>(<span class="hljs-number">2deg</span>);
+    }
+    <span class="hljs-tag">100%</span>{
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+        <span class="hljs-attribute">transform</span>: <span class="hljs-function">rotateX</span>(<span class="hljs-number">0</span>);
+    }
+}
+</code></pre><p>  最后，对于lte9其实也可以采用js来实现动画，这里就不作讨论了。总之，css3动画是个比较丰富的课题，只有一步步去探索，才会实现更大的可能。</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>
+</div>
+</body>
+</html>

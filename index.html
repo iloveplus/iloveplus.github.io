@@ -1,32 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
-    <title>样式示例讲解</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href='/MyBlogs/css/imweb.css'><!--IMWeb样式引用-->
+    <link rel="stylesheet" href="MyBlogs/css/common.css"> <!-- 框架样式 -->
+    <link rel="stylesheet" href="MyBlogs/css/index.css"> <!-- 页面样式 -->
+    <link href='MyBlogs/fonts/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+    <script src="MyBlogs/js/modernizr.js"></script> <!-- Modernizr -->
+    <script src="MyBlogs/js/data.js"></script> <!-- 文章列表 -->
+    <title>测试</title>
 </head>
 <body>
-    <ul>
-        <a href="before%20&%20after/index.html" target="_blank">
-            <li>Before和After用法小结</li>
-        </a>
-        <a href="Box_Shadow/index.html" target="_blank">
-            <li>box-shadow特效集锦</li>
-        </a>
-        <a href="button/index.html" target="_blank">
-            <li>Button特效</li>
-        </a>
-        <a href="HorizontalVerticalCentering/index.html" target="_blank">
-            <li>水平垂直居中</li>
-        </a>
-        <a href="Animation/index.html" target="_blank">
-            <li>动画课程集锦</li>
-        </a>
-        <a href="Compatibility/index.html" target="_blank">
-            <li>手机兼容性</li>
-        </a>
-        <a href="DemoWeb/index.html" target="_blank">
-            <li>一些Demo示例</li>
-        </a>
-    </ul>
+<main>
+    <div class="cd-main-content">
+        <div class="my-info">
+            <div class="my-info-index">
+                <div class="my-index">
+                    <img src="MyBlogs/images/my-icon.png" alt="">
+                    <div class="my-name">作者：徐航</div>
+                    <div class="my-modal">
+                        <div class="title">我的标签</div>
+                        <ul id="blogLabel">
+                            <li>C#.NET<span>(0)</span></li>
+                            <li>React</li>
+                            <li>Angular2</li>
+                            <li>Nodejs</li>
+                            <li>Mongodb</li>
+                            <li>算法</li>
+                            <li>错误笔记</li>
+                        </ul>
+                    </div>
+                    <div class="my-modal">
+                        <div class="title">友情链接</div>
+                        <ul>
+                            <a href="http://imweb.github.io/"><li>腾讯IMWeb</li></a>
+                            <a href="http://www.alloyteam.com/"><li>腾讯AlloyTeam</li></a>
+                            <a href="http://www.aliued.com/"><li>淘宝UED</li></a>
+                            <a href="http://fex.baidu.com/"><li>百度FEX</li></a>
+                        </ul>
+                    </div>
+                </div>
+
+                <!--文章列表-->
+                <div class="my-blogs">
+                    <div class="my-menu-back">
+                        <i class="icon-angle-left"></i>
+                        <div id="label-title"></div>
+                    </div>
+                    <div class="my-modal sub-menus">
+                        <ul id="sub-menus">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--导航-->
+            <div class="my-navigation">
+                <a style="border-right: 1px solid #f5f5f5;" href="" data-type="page-transition" id="pagePrep">上一篇</a>
+                <a href="" data-type="page-transition" id="pageNext">下一篇</a>
+            </div>
+        </div>
+        <div class="my-content">
+            <div class="page-content">
+
+            </div>
+        </div>
+    </div>
+</main>
+<div class="cd-cover-layer"></div>
+<div class="cd-loading-bar"></div>
+<script src="MyBlogs/js/jquery-2.1.1.js"></script>
+<script src="MyBlogs/js/main.js"></script> <!-- Resource jQuery -->
+<script src="MyBlogs/js/index.js"></script>
 </body>
 </html>
