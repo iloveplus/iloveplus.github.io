@@ -7,6 +7,19 @@ jQuery(document).ready(function(event){
       event.preventDefault();
       var _this=$(this);
       var newPage = _this.attr('href');
+
+      //添加EndsWith扩展--解决手机端兼容问题
+      if (!String.prototype.endsWith) {
+          String.prototype.endsWith = function(searchString, position) {
+              var subjectString = this.toString();
+              if (typeof position !== 'number' || !isFinite(position) || Math.floor(position) !== position || position > subjectString.length) {
+                  position = subjectString.length;
+              }
+              position -= searchString.length;
+              var lastIndex = subjectString.lastIndexOf(searchString, position);
+              return lastIndex !== -1 && lastIndex === position;
+          };
+      }
       if(newPage==""||newPage==undefined||location.href.endsWith(newPage)){
           return false;
       }
