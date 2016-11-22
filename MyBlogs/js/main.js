@@ -105,7 +105,9 @@ jQuery(document).ready(function(event){
             $("body").addClass("show-content");
         }
   	var section = $('<div class="page-content"></div>');
-  		
+
+     //滚动条重置为初始位置
+    $('.my-content').html("");
   	section.load(url+' .page-content', function(event){
       // load new content and replace <main> content with the new one
       $('.my-content').html(section);
