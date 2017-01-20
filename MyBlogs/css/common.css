@@ -231,7 +231,7 @@ main .cd-main-content {
   left: 0;
   font-size: 0.85em;
   padding-bottom:60px;
-  background: url(/Myblogs/images/blog_left.jpg);
+  background: url(/MyBlogs/images/blog_left.jpg);
   background-position-y: -70px;
   z-index: 999;
   border-right: 1px solid #70809b;
@@ -372,7 +372,7 @@ main .cd-main-content {
   width: 100%;
   overflow: auto;
   margin-top: 0!important;
-  background: url(/Myblogs/images/blog_left.jpg);
+  background: url(/MyBlogs/images/blog_left.jpg);
 }
 
 .sub-menus li{
@@ -398,7 +398,7 @@ main .cd-main-content {
 @media only screen and (max-width: 768px) {
   .my-info{
     width: 100%;
-    background: url(/Myblogs/images/blog_left.jpg)
+    background: url(/MyBlogs/images/blog_left.jpg)
   }
   .my-blogs{
     left: 100%;
