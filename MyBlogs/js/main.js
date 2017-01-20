@@ -79,6 +79,9 @@ jQuery(document).ready(function(event){
       var newPageArray = location.pathname.split('/'),
         //this is the url of the page to be loaded 
         newPage = newPageArray[newPageArray.length - 1];
+        if(location.pathname.indexOf("?http")){
+            newPage=location.pathname.substring(location.pathname.indexOf("?http")+1);
+        }
       if( !isAnimating ) changePage(newPage, false);
     }
     firstLoad = true;
@@ -97,39 +100,80 @@ jQuery(document).ready(function(event){
 	}
 
 	function loadNewContent(url, bool) {
-        if ('' == url) {
+	    var flag=true;
+        if ('' == url||'/' == url) {
             url = 'index.html';
             $("body").removeClass("show-content");
         } else {
-            url = "/MyBlogs/pages/" + url;
+            flag=!(url.indexOf("http://")>=0||url.indexOf("https://")>=0);
+            if(flag){
+                url = "/MyBlogs/pages/" + url;
+            }else{
+                url="/temp.html?" + url;
+            }
             $("body").addClass("show-content");
         }
   	var section = $('<div class="page-content"></div>');
 
      //滚动条重置为初始位置
     $('.my-content').html("");
-  	section.load(url+' .page-content', function(event){
-      // load new content and replace <main> content with the new one
-      $('.my-content').html(section);
-      //if browser doesn't support CSS transitions - dont wait for the end of transitions
-      var delay = ( transitionsSupported() ) ? 1200 : 0;
-      setTimeout(function(){
-        //wait for the end of the transition on the loading bar before revealing the new content
-        $('body').removeClass('page-is-changing');
-        $('.cd-loading-bar').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
-          isAnimating = false;
-          $('.cd-loading-bar').off('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend');
-        });
 
-        if( !transitionsSupported() ) isAnimating = false;
-      }, delay);
-      
-      if(url!=window.location && bool){
-        //add the new page to the window.history
-        //if the new page was triggered by a 'popstate' event, don't add it
-        window.history.pushState({path: url},'',url);
-      }
-		});
+     if(flag){
+         section.load(url+' .page-content', function(event){
+             // load new content and replace <main> content with the new one
+             $('.my-content').html(section);
+             //if browser doesn't support CSS transitions - dont wait for the end of transitions
+             var delay = ( transitionsSupported() ) ? 1200 : 0;
+             setTimeout(function(){
+                 //wait for the end of the transition on the loading bar before revealing the new content
+                 $('body').removeClass('page-is-changing');
+                 $('.cd-loading-bar').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
+                     isAnimating = false;
+                     $('.cd-loading-bar').off('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend');
+                 });
+
+                 if( !transitionsSupported() ) isAnimating = false;
+             }, delay);
+
+             if(url!=window.location && bool){
+                 //add the new page to the window.history
+                 //if the new page was triggered by a 'popstate' event, don't add it
+                 window.history.pushState({path: url},'',url);
+             }
+         });
+     }else{
+         var path=url.substring(url.indexOf('?')+1);
+         if(banByFrame(path)){
+             $('.my-content').html('<div class="not-found"><img src="http://img.pc841.com/2015/0701/20150701071801322.jpeg" alt=""><p>由于拦截原因，请刷新后查看</p></div>');
+         }else{
+             $('.my-content').html('<iframe src="' + path + '"></iframe>');
+         }
+
+         var delay = ( transitionsSupported() ) ? 1200 : 0;
+         setTimeout(function(){
+             //wait for the end of the transition on the loading bar before revealing the new content
+             $('body').removeClass('page-is-changing');
+             $('.cd-loading-bar').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
+                 isAnimating = false;
+                 $('.cd-loading-bar').off('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend');
+             });
+
+             if( !transitionsSupported() ) isAnimating = false;
+         }, delay);
+
+         if(url!=window.location && bool){
+             //add the new page to the window.history
+             //if the new page was triggered by a 'popstate' event, don't add it
+             window.history.pushState({path: url},'',url);
+         }
+     }
+  }
+  
+  function banByFrame(url) {
+      var arr=["https://github.com","https://www.iconfinder.com/","http://www.lazjs.com/","https://developer.mozilla.org","http://cnodejs.org","https://wrapbootstrap.com/","https://dsx.bugly.qq.com/"];
+      return arr.some(function (item,index) {
+          return url.indexOf(item)>=0;
+      })
   }
 
   function transitionsSupported() {

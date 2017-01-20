@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>中转页</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    if(location.href.indexOf("?http")>=0){
+        var url=location.href.substring(location.href.indexOf("?http")+1);
+        window.location.href=url;
+    }
+</script>
