@@ -1,5 +1,5 @@
 /**
- * Created by xuhang on 2016/11/16.
+ * Created by xuhang on 2016/10/16.
  */
 var data=[
     {
@@ -31,13 +31,13 @@ var data=[
     },
     {
         label:"收藏作品",blogs:[
+        { title:"代码规范",url:"http://alloyteam.github.io/CodeGuide/"},
         { title:"pickerjs时间选择插件",url:"https://fengyuanchen.github.io/pickerjs/"},
         { title:"momentjs时间操作",url:"http://momentjs.cn/docs/#/get-set/day-of-year/"},
         { title:"viewerjs图片预览插件",url:"https://fengyuanchen.github.io/viewerjs/"},
         { title:"cropperjs图片裁剪插件",url:"https://fengyuanchen.github.io/cropperjs/"},
         { title:"lightgallery.js",url:"https://sachinchoolur.github.io/lightgallery.js/"},
         { title:"SVG操作库",url:"http://dmitrybaranovskiy.github.io/raphael/reference.html"},
-        { title:"File上传API",url:"http://mailru.github.io/FileAPI/"},
         { title:"前端本地客户端压缩图片",url:"https://github.com/think2011/localResizeIMG"},
         { title:"SVG操作库",url:"http://dmitrybaranovskiy.github.io/raphael/reference.html"},
         { title:"雪碧图",url:"http://alloyteam.github.io/gopng/"},
@@ -46,6 +46,9 @@ var data=[
         { title:"日历控件",url:"https://fullcalendar.io/"},
         { title:"图片轮播",url:"http://unslider.com/"},
         { title:"文本编辑器",url:"http://summernote.org/"},
+        { title:"File上传API",url:"http://mailru.github.io/FileAPI/"},
+        { title:"文件上传一",url:"http://ssbeefeater.github.io/#ssi-uploader/examples"},
+        { title:"文件上传二",url:"http://jeremyfagis.github.io/dropify/"},
         ]
     },
     {
