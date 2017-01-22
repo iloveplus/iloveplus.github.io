@@ -49,6 +49,8 @@ var data=[
         { title:"File上传API",url:"http://mailru.github.io/FileAPI/"},
         { title:"文件上传一",url:"http://ssbeefeater.github.io/#ssi-uploader/examples"},
         { title:"文件上传二",url:"http://jeremyfagis.github.io/dropify/"},
+        { title:"React-GooeyMenu",url:"https://github.com/sketchynix/React-GooeyMenu"},
+        { title:"Gooey Menu",url:"http://www.jq22.com/demo/gooey-150504161419/"},
         ]
     },
     {
