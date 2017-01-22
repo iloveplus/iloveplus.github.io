@@ -65,7 +65,7 @@
 
                 <!--</div>-->
             <!--</div>-->
-            <iframe src="http://alloyteam.github.io/CodeGuide/" frameborder="0"></iframe>
+            <iframe src="http://alloyteam.github.io/CodeGuide/" frameborder="0" id="iframe"></iframe>
         </div>
     </div>
 </main>
@@ -76,3 +76,7 @@
 <script src="MyBlogs/js/index.js"></script>
 </body>
 </html>
+<script>
+    $(document.getElementById('iframe').contentWindow.document.body.getElementsByTagName("header")).hide();
+    //document.getElementById('iframe').contentWindow.document.body.getElementsByTagName("header").display="none"
+</script>
