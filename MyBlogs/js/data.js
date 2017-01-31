@@ -26,7 +26,7 @@ var data=[
         label:"个人作品",blogs:[
         { title:"js前端流程插件",url:"http://myflow.iloveplus.cn"},
         { title:"word在线批注",url:"http://www.iloveplus.cn/highlighter/index.html"},
-        { title:"web切片案例",url:"http://www.iloveplus.cn/webDemo/index.html"},
+        { title:"web切片案例(兼容IE8)",url:"http://www.iloveplus.cn/webDemo/index.html"},
         { title:"react-native-calendar",url:"https://github.com/iloveplus/react-native-calendar/blob/master/README.md"},
         { title:"react-native-tooltip",url:"https://github.com/iloveplus/react-native-tooltip/blob/master/README.md"},
         ]
